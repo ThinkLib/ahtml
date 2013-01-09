@@ -1,55 +1,83 @@
+import script.config;
+import script.extends;
 import script.aau;
-namespace script.ahtml;
+namespace script;
 
-var rep = ..string.replace;
+var config = ..script.config;
 
-var preCompile = function (ns, code) {
-	if ( ! ..string.find(code, "<\<\?>|<\?\>>") ) {
-		return '..io.stdout.write("' + rep(code, '"', '""') + '");';
+// 重定向根名字空间
+begin
+	global[config.rootNamespace] = ..table.mixin({}, ..script.extends);
+	
+	global@ = {
+		_get = function (k) {
+			return global[config.rootNamespace][[k]];
+		}
+	};
+end
+
+ahtml = class {
+	["begin"] = function () {
+		..script.extends.scriptObject = this;
 	}
-	var replacer = function (r, s) {
-		if (#s) {
-			return r + '..io.stdout.write("' + rep(s, '"', '""') + '");';
+	
+	["end"] = function () {
+		global[config.rootNamespace] = ..table.mixin({}, ..script.extends);
+	}
+	
+	isCompiled = function (code) {
+		return code && ..string.startWith(code, "<?=AAuto");
+	}
+	
+	dofile = function (filename = "", code, args) {
+		if (code === null) {
+			var file = ..fsys.file(filename, "r");
+			if ( ! file) {
+				error( ..string.concat(filename, "不存在"), 3 );
+			}
+			code = file.read(-1);	
+			file.close();
+		}
+		if ( this.isCompiled(code) ) {
+			code = ..string.right(code, -3);
 		}
 		else {
-			return r;
+			code = preCompile(code);
 		}
+		return ..script.aau().dofile(filename, code, args);
 	}
-	code = rep(code, "\<\?<\s*>=([\s\S]*?)<;*>\?\>", "<?..io.stdout.write(\1);?>");
-	code = rep(code, "^(<\r\n>?)([\s\S]*?)\<\?", replacer);
-	code = rep(code, "\?\>(<\r\n>?)([\s\S]*?)\<\?", replacer);
-	code = rep(code, "\?\>(<\r\n>?)([\s\S]*?)$", replacer);
-	code = '
-		namespace ' + ns + ';
-		import io; import console; import string;
-		import table; import math; import time;
-		import com; import util;
-		var request = ..request;
-		var response = ..response;
-		var require = function (filename, args, code) {
-			if (code === null)
-				filename = ..io.fullpath(filename);
-			..script.ahtml.run("' + ns + '", filename, code, args);
-		}
-		' + code;
-	return code;
 }
 
-run = function (ns, filename = "", code, args) {
-	if (code === null) {
-		var file = ..fsys.file(filename, "r");
-		if ( ! file) {
-			error( ..string.concat(filename, "不存在"), 3 );
+namespace ahtml {
+	var config = ..script.config;
+	
+	var find = ..string.find;
+	var rep = ..string.replace;
+	
+	preCompile = function (code) {
+		if ( ! find(code, "<\<\?>|<\?\>>") ) {
+			return '..io.stdout.write("' + rep(code, '"', '""') + '");';
 		}
-		code = file.read(-1);	
-		file.close();
+		var replacer = function (r, s) {
+			if (#s) {
+				return r + '..io.stdout.write("' + rep(s, '"', '""') + '");';
+			}
+			else {
+				return r;
+			}
+		}
+		code = rep(code, "\<\?<\s*>=([\s\S]*?)<;*>\?\>", "<?..io.stdout.write(\1);?>");
+		code = rep(code, "^(<\r\n>?)([\s\S]*?)\<\?", replacer);
+		code = rep(code, "\?\>(<\r\n>?)([\s\S]*?)\<\?", replacer);
+		code = rep(code, "\?\>(<\r\n>?)([\s\S]*?)$", replacer);
+		code = '
+			namespace ' + config.rootNamespace + ';
+			import io; import console; import string;
+			import table; import math; import time;
+			import com; import util;
+			var request = ..request;
+			var response = ..response;
+			' + code;
+		return code;
 	}
-	if ( ..string.startWith(code, "<?=AAuto") ) {
-		// ahtml 已编译
-		code = ..string.right(code, -3);
-	}
-	else {
-		code = preCompile(ns, code);
-	}
-	..script.aau.run(ns, filename, code, args);
 }

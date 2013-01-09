@@ -1,0 +1,17 @@
+namespace script.config;
+
+rootNamespace = "ns";
+
+errorTemplate = /**
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+<p>文件路径: %s</p>
+<p>行号: %s</p>
+<p>错误信息：</p><pre>%s</pre>
+</body>
+</html>
+**/

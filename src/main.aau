@@ -11,7 +11,7 @@ import preg;
 import request;
 import response;
 
-global.onError= function( e ){ 
+global.onError = function( e ){ 
 	import debug.log;
 	debug.log.write(e);
 	debug.log.flush();
@@ -27,8 +27,11 @@ while (fcgi.accept()) {
 			error("No input file specified. ", -1);
 		}
 		file.close();
-		script.ahtml.run("ns", filename);
-		ns = null;
+		
+		var ahtml = script.ahtml();
+		ahtml.begin();
+		ahtml.dofile(filename);
+		ahtml.end();
 	}
 	catch (e) {
 		io.stderr.write(e);

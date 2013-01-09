@@ -1,0 +1,7 @@
+namespace script.extends;
+
+require = function (filename, args, code) {
+	if (code === null)
+		filename = ..io.fullpath(filename);
+	return scriptObject.dofile(filename, code, args);
+}

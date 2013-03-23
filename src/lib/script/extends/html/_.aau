@@ -1,0 +1,14 @@
+namespace script.extends.html;
+
+encode = function (str = "") {
+	return (..string.replace(
+		str,
+		"(&|""|\<|\>)",
+		{
+			["&"] = "&amp;";
+			['"'] = "&quot;";
+			["<"] = "&lt;";
+			[">"] = "&gt;";
+		}
+	));
+}

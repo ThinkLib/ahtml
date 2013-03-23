@@ -11,7 +11,7 @@ begin
 	
 	global@ = {
 		_get = function (k) {
-			return global[config.rootNamespace][[k]];
+			return global[config.rootNamespace][[k]] : extends[[k]];
 		}
 	};
 end

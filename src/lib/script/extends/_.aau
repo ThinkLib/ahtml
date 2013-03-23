@@ -5,3 +5,7 @@ require = function (filename, args, code) {
 		filename = ..io.fullpath(filename);
 	return scriptObject.dofile(filename, code, args);
 }
+
+/*导入其他扩展库{{*/
+import script.extends.html
+/*}}*/

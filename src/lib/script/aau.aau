@@ -33,6 +33,8 @@ namespace aau {
 	throwError = function (filename, e) {
 		var line = ..string.match(e, "line\:#(\d+)");
 		e = rget( 2, ..string.match(e, "file\:([\s\S]+)<error\:>|<\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-[\s\r\n]+>(.+)") );
+		filename = ..string.html.fromText(filename);
+		e = ..string.html.fromText(e);
 		..io.stderr.write( toUTF8( ..string.format(config.errorTemplate, filename : "", line : "", e : "") ) );
 		error("", -1);
 	}

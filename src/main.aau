@@ -11,7 +11,7 @@ import preg;
 import request;
 import response;
 
-global.onError = function( e ){ 
+global.onError = function (e) { 
 	import debug.log;
 	debug.log.write(e);
 	debug.log.flush();

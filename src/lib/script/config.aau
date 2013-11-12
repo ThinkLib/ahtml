@@ -11,7 +11,7 @@ errorTemplate = /**
 <body>
 <p>文件路径: %s</p>
 <p>行号: %s</p>
-<p>错误信息：</p><pre>%s</pre>
+<p>错误信息: </p><pre>%s</pre>
 </body>
 </html>
 **/

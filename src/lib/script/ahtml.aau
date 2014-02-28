@@ -66,7 +66,7 @@ namespace ahtml {
 				return r;
 			}
 		}
-		code = rep(code, "\<\?\s*=([\s\S]*?)<;*>\?\>", "<?..io.stdout.write(\1);?>");
+		code = rep(code, "\<\?\s*=([\s\S]*?);*\?\>", "<?..io.stdout.write(\1);?>");
 		code = rep(code, "^(<\r\n>?)([\s\S]*?)\<\?", replacer);
 		code = rep(code, "\?\>(<\r\n>?)([\s\S]*?)\<\?", replacer);
 		code = rep(code, "\?\>(<\r\n>?)([\s\S]*?)$", replacer);

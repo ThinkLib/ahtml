@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="gb2312"?>
-<project ver="0.60" name="ahtmlcgi" libEmbed="false" icon="..." CompanyName="codehut.me" FileDescription="ahtml" LegalCopyright="Copyright (C) lujjjh 2014" ProductName="ahtml" InternalName="ahtml script" FileVersion="0.0.1.001" ProductVersion="0.0.1.001" publishDir="\..\release" ui="console" output="ahtmlcgi.exe">
+<project ver="0.60" name="ahtmlcgi" libEmbed="true" icon="..." CompanyName="codehut.me" FileDescription="ahtml" LegalCopyright="Copyright (C) lujjjh 2014" ProductName="ahtml" InternalName="ahtml script" FileVersion="0.0.1.001" ProductVersion="0.0.1.001" publishDir="\..\release" ui="console" output="ahtmlcgi.exe">
 	<file name="main.aau" path="main.aau"/>
 </project>

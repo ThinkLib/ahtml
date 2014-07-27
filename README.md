@@ -117,46 +117,20 @@ ahtml 以 AAuto 作为母语言，因此 ahtml 支持 AAuto 所有的语法特�
 ### 标准库
 除 AAuto 内核库之外，ahtml 会自动引入一些标准库。另外，并不是所有的 AAuto 标准库都可以在 ahtml 中被引入。下面的表格展示了自动引入的标准库以及可引入的标准库。
 
-<table>
-	<tr>
-		<th>库名称</th>
-		<th>是否自动引入</th>
-	</tr>
-	<tr>
-		<td>com</td>
-		<td>是</td>
-	</tr>
-	<tr>
-		<td>console</td>
-		<td>是</td>
-	</tr>
-	<tr>
-		<td>fsys</td>
-		<td>否</td>
-	</tr>
-	<tr>
-		<td>util</td>
-		<td>是</td>
-	</tr>
-</table>
+库名称   | 是否自动引入 
+-------- | -------------
+com      | 是
+console  | 是
+fsys     | 否
+util     | 是
 
 ### 扩展库
 ahtml 也会引入 AAuto 中的一些扩展库。
 
-<table>
-	<tr>
-		<th>库名称</th>
-		<th>是否自动引入</th>
-	</tr>
-	<tr>
-		<td>mysql</td>
-		<td>是</td>
-	</tr>
-	<tr>
-		<td>preg</td>
-		<td>否</td>
-	</tr>
-</table>
+库名称   | 是否自动引入 
+-------- | -------------
+mysql    | 是
+preg     | 否
 
 ### 用户库
 除标准库、扩展库之外，用户可自定义用户库。用户库放置在网站根目录下的一个名为 ``lib`` 的文件夹内，可被站点内的 ahtml 文件引入（用法与 AAuto 的用户库相同）。
@@ -166,47 +140,23 @@ ahtml 作为服务端语言，同时作为 FastCGI 应用，需要处理来自 W
 
 简单地说，ahtml 的扩展对象有两个：
 
-<table>
-	<tr>
-		<th>类型</th>
-		<th>对象名</th>
-	</tr>
-	<tr>
-		<td>请求对象</td>
-		<td>request</td>
-	</tr>
-	<tr>
-		<td>响应对象</td>
-		<td>response</td>
-	</tr>
-</table>
+类型     | 对象名 
+-------- | -----------
+请求对象 | request
+响应对象 | response
 
 #### 请求 (request) 对象
 请求对象是用来获取来自 Web 服务器的客户端请求信息的（如 Web 服务端、站点信息，Query String、POST Data、附加协议头等）。
 
 就目前而言，request 对象有四个键值对成员：
-<table>
-	<tr>
-		<th>成员名</th>
-		<th>用途</th>
-	</tr>
-	<tr>
-		<td>server</td>
-		<td>来源于服务器的信息，相当于 PHP 中的 ``$_SERVER`` 数组</td>
-	</tr>
-	<tr>
-		<td>post</td>
-		<td>客户端的 POST Data，相当于 PHP 中的 ``$_POST`` 数组</td>
-	</tr>
-	<tr>
-		<td>get</td>
-		<td>客户端的 Query String，相当于 PHP 中的 ``$_GET`` 数组</td>
-	</tr>
-	<tr>
-		<td>cookie</td>
-		<td>客户端的 COOKIE，相当于 PHP 中的 ``$_COOKIE`` 数组</td>
-	</tr>
-</table>
+
+
+成员名   | 用途 
+-------- | -------------
+server   | 来源于服务器的信息，相当于 PHP 中的 ``$_SERVER`` 数组
+post     | 客户端的 POST Data，相当于 PHP 中的 ``$_POST`` 数组
+get      | 客户端的 Query String，相当于 PHP 中的 ``$_GET`` 数组
+cookie   | 客户端的 COOKIE，相当于 PHP 中的 ``$_COOKIE`` 数组
 
 其操作方法如同 AAuto 中的普通键值对一样（需要注意的是，``request.cookie`` 比较特殊，不支持直接遍历。
 

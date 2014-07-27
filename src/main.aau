@@ -1,22 +1,29 @@
-import fsys;
-import fcgi;
-import util.buffer;
-import script.aau;
-import script.ahtml;
+/*¥ÌŒÛ»’÷æ{{*/
+import util.log;
 
-import com;
-import util;
-import preg;
-
-import request;
-import response;
+var errorLog;
 
 global.onError = function (e) { 
-	import debug.log;
-	debug.log.write(e);
-	debug.log.flush();
+	if (!errorLog) {
+		errorLog = util.log("error");
+	};
+	errorLog.trace(e);
+	
 	return true; 
 }
+/*}}*/
+
+import com;
+import fsys;
+
+import preg;
+
+import fcgi;
+import request;
+import response;
+import script.aau;
+import script.ahtml;
+import util.buffer;
 
 while (fcgi.accept()) {
 	util.buffer.beginBuffer();

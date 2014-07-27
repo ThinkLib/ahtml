@@ -1,0 +1,25 @@
+import debug;
+import util;
+
+namespace util;
+
+class log {
+	ctor (name) {
+		this._file = ..io.open(..string.format("/%s.log", name), "a");
+		assert(this._file);
+		..table.gc(this, ..util.hitch(this._file, "close"));
+	}
+	
+	write = function (...) {
+		var t = ..time();
+		t.format = "%Y-%m-%d %H:%M:%S";
+		this._file.write(..string.format("[%s] ", tostring(t)));
+		this._file.write(...);
+		this._file.write('\n');
+		this._file.flush();
+	}
+	
+	trace = function (...) {
+		this.write(..., '\n\n', ..debug.traceback());
+	}
+}
